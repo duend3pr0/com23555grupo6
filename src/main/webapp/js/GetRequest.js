@@ -47,10 +47,82 @@ document.addEventListener("DOMContentLoaded", function () {
                 .catch(error => console.error("Error en la solicitud GET", error));
 
     });
+    
+    function filterBooks(palabra){
+        const librosFiltrados = books.filter(book=>{
+           return book.nombre.toLowerCase().includes(palabra.toLowerCase()); 
+        });
+        
+        bookCards.innerHTML= "";
+        
+        librosFiltrados.forEach(book=>{
+            const card = document.createElement("div");
+            card.className = "col-md-3 mb-4 ident";
+            card.setAttribute("data-book-id", book.idlibros);
+            card.innerHTML = `
+                <div class="card h-100 animate-hover-card">
+                    <img src="data:image/jpg;base64,${book.imagenBase64}" class="card-img-top h-75 " alt="Imagen de portada">
+                    <div class="card-body">
+                        <h5 class="card-title">${book.nombre}</h5>
+                        <p class="card-text"> ${book.sinopsis}</p>
+                    </div>
+                </div>    
 
-    loadBookList();
+            `;
+            bookCards.appendChild(card);
+        });
+        
+    };
+    
+    const searchForm = document.querySelector("form[role='search']");
+    searchForm.addEventListener("submit", function(e){
+       e.preventDefault();
+       const searchTerm = searchForm.querySelector("input"[type='search']).value;
+       filterBooks(searcTerm);
+    });
+    
+    bookCards.addEventListener("click", function(e){        
+       const clickedCard = e.target.closest(".ident");
+        
+    })
+    
+    
+    
+    
+
+    loadBookList();    
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
