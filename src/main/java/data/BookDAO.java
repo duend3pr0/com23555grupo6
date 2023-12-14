@@ -9,7 +9,7 @@ public class BookDAO {
 
     private static final String SQL_SELECT = "SELECT * FROM libros";
     private static final String SQL_SELECT_BY_ID = "SELECT * FROM libros WHERE idLibros = ?";
-    private static final String SQL_INSERT = "INSERT INTO libros(nombre, autor, cantPaginas, precio, copias, imagen) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String SQL_INSERT = "INSERT INTO libros(nombre, autor, cantPaginas, precio, copias, sinopsis, imagen) VALUES (?, ?, ?, ?, ?,?, ?)";
     private static final String SQL_UPDATE = "UPDATE libros SET nombre = ?, autor = ?, cantPaginas = ?, precio = ?, copias = ?, imagen = ? WHERE idLibros = ?";
     private static final String SQL_DELETE = "DELETE FROM libros WHERE idLibros = ?";
 
