@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const btnContainerElement = document.getElementById("btnContainer");
     
     
-    let objetolibro = {
+    let objetoLibro = {
         id: 0,
         nombre: "",
         autor: "",
@@ -60,8 +60,8 @@ document.addEventListener("DOMContentLoaded", function(){
                 objetoLibro.cantPaginas= data.cantPaginas;
                 objetoLibro.sinopsis= data.sinopsis;
                 objetoLibro.copias= data.copias;
-                 objetoLibro.precio= data.precio;
-                  objetoLibro.imagen= data.imagen;               
+                objetoLibro.precio= data.precio;
+                objetoLibro.imagen= data.imagen;               
                 });
     }
     loadBook();

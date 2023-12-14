@@ -2,7 +2,7 @@ package model;
 
 import lombok.*;
 
-@Data
+    @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Book {
