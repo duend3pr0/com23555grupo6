@@ -36,6 +36,77 @@ public class Book {
         this.copias = copias;
         this.imagen = imagen;
     }
-    
+    public int getIdlibros() {
+        return idlibros;
+    }
+
+    public void setIdlibros(int idlibros) {
+        this.idlibros = idlibros;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public int getCantPaginas() {
+        return cantPaginas;
+    }
+
+    public void setCantPaginas(int cantPaginas) {
+        this.cantPaginas = cantPaginas;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public String getSinopsis() {
+        return sinopsis;
+    }
+
+    public void setSinopsis(String sinopsis) {
+        this.sinopsis = sinopsis;
+    }
+
+    public int getCopias() {
+        return copias;
+    }
+
+    public void setCopias(int copias) {
+        this.copias = copias;
+    }
+
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
+    }
+
+    public String getImagenBase64() {
+        return imagenBase64;
+    }
+
+    public void setImagenBase64(String imagenBase64) {
+        this.imagenBase64 = imagenBase64;
+    }
+}
     
 }
