@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function(){
                 .then(response=> response.json())
                 .then(data =>{
                     data.forEach(book =>{
-                        books.push(book);
+                        books.push(book);                        
                         bookCards.innerHTML += `
                             <div class="col-md-3 mb-4 ident" data-book-id="${book.idlibros}">
                                 <div class="card h-100 animate-hover-card">
@@ -15,12 +15,13 @@ document.addEventListener("DOMContentLoaded", function(){
                                     <div class="card-body ">
                                         <h5 class="card-tittle">${book.nombre}</h5>
                                         <p class="card-text">${book.sinopsis}</p>
-                                    </div>
+                                    </div>  
                                 </div>
                             </div>
                         `;
                     });
                 });
+                
     }
     
     function filterBooks(palabra){
@@ -29,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function(){
         });
         
         bookCards.innerHTML = "";
-        
+        console.log(librosFiltrados);   
          librosFiltrados.forEach(book => {
             const card = document.createElement("div");
             card.className = "col-md-3 mb-4 ident";
@@ -50,7 +51,8 @@ document.addEventListener("DOMContentLoaded", function(){
     //Evento que lanza la funcion de filtrar y agregar tarjetas de libros.
     const searchForm = document.querySelector("form[role='search']");
     searchForm.addEventListener("submit", function(e){
-       e.preventDefault();
+       
+      e.preventDefault();
        const searchTerm = searchForm.querySelector("input[type='search']").value;
        filterBooks(searchTerm);
     });
