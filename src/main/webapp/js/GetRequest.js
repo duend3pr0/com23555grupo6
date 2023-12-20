@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", function(){
     
     //Evento que lanza la funcion de filtrar y agregar tarjetas de libros.
     const searchForm = document.querySelector("form[role='search']");
+    
     searchForm.addEventListener("submit", function(e){
        
       e.preventDefault();
@@ -83,7 +84,6 @@ document.addEventListener("DOMContentLoaded", function(){
     
     
 });
-
 
 
 
