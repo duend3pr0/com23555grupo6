@@ -6,13 +6,17 @@ import java.util.*;
 import model.Book;
 
 public class BookDAO {
-
+    
     private static final String SQL_SELECT = "SELECT * FROM libros";
-    private static final String SQL_SELECT_BY_ID = "SELECT * FROM libros WHERE idLibros = ?";
-    private static final String SQL_INSERT = "INSERT INTO libros(nombre, autor, cantPaginas, precio, copias, sinopsis, imagen) VALUES (?, ?, ?, ?, ?,?, ?)";
-    private static final String SQL_UPDATE = "UPDATE libros SET nombre = ?, autor = ?, cantPaginas = ?, precio = ?, copias = ?, imagen = ? WHERE idLibros = ?";
-    private static final String SQL_DELETE = "DELETE FROM libros WHERE idLibros = ?";
+    
+    private static final String SQL_SELECT_BY_ID = "SELECT * FROM libros WHERE idlibros = ?";
+   
+    private static final String SQL_INSERT = "INSERT INTO libros(nombre, autor, cantPaginas, precio, copias, imagen, sinopsis) VALUES(?, ?, ?, ?, ?, ?, ?)";
+    
+    private static final String SQL_UPDATE = "UPDATE libros SET nombre = ?, autor = ?, cantPaginas = ?, precio= ?, copias= ?, sinopsis= ? WHERE idlibros = ?";
 
+    private static final String SQL_DELETE = "DELETE FROM libros WHERE idlibros = ?";
+    
     public static List<Book> seleccionar() {
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -32,16 +36,9 @@ public class BookDAO {
                 double precio = rs.getDouble("precio");
                 String sinopsis = rs.getString("sinopsis");
                 int copias = rs.getInt("copias");
-
+                
                 Blob blob = rs.getBlob("imagen");
-                byte[] imagenBytes = null;
-
-                if (blob != null) {
-                    imagenBytes = blob.getBytes(1, (int) blob.length());
-                } else {
-                    // Puedes asignar un valor predeterminado o manejarlo según tu lógica
-                    imagenBytes = new byte[0]; // O cualquier otro valor predeterminado
-                }
+                byte[] imagenBytes = blob.getBytes(1, (int)blob.length());
 
                 libro = new Book(idlibro, nombre, autor, cantPag, precio, sinopsis, copias, imagenBytes);
 
@@ -50,14 +47,20 @@ public class BookDAO {
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
-            close(conn, stmt, rs);
+            try {
+                close(rs);
+                close(stmt);
+                close(conn);
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.out);
+            }
         }
+
         return libros;
     }
-
-    public static int insertar(Book libro) {
+    
+    public static int insertar(Book libro){
         Connection conn = null;
-        ResultSet rs = null;
         PreparedStatement stmt = null;
         int registros = 0;
         try {
@@ -68,78 +71,123 @@ public class BookDAO {
             stmt.setInt(3, libro.getCantPaginas());
             stmt.setDouble(4, libro.getPrecio());
             stmt.setInt(5, libro.getCopias());
-            stmt.setString(7, libro.getSinopsis());
-
-            System.out.println("Sinopsis DAO" + libro.getSinopsis());
+            
             Blob imagenBlob = conn.createBlob();
             imagenBlob.setBytes(1, libro.getImagen());
             stmt.setBlob(6, imagenBlob);
-
+            
+            stmt.setString(7,libro.getSinopsis());
+            
             registros = stmt.executeUpdate();
-            if (registros > 0) {
-                System.out.println("Inserción exitosa. Registros afectados: " + registros);
-            } else {
-                System.out.println("Error al insertar el libro.");
-            }
-
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
-        } finally {
-            close(conn, stmt, rs);
+        }
+        finally{
+            try {
+                close(stmt);
+                close(conn);
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.out);
+            }
         }
         return registros;
     }
-
+   
     public static Book seleccionarPorId(int id) {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Book libro = null;
+
         try {
             conn = getConexion();
             stmt = conn.prepareStatement(SQL_SELECT_BY_ID);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
-
+            
             while (rs.next()) {
-                int idlibro = rs.getInt(1);
+                int idlibros = rs.getInt("idlibros");
                 String nombre = rs.getString("nombre");
                 String autor = rs.getString("autor");
                 int cantPag = rs.getInt("cantPaginas");
-                double precio = rs.getDouble("precio");
                 String sinopsis = rs.getString("sinopsis");
+                double precio = rs.getDouble("precio");
                 int copias = rs.getInt("copias");
-
+                
                 Blob blob = rs.getBlob("imagen");
-                byte[] imagenBytes = blob.getBytes(1, (int) blob.length());
+                byte[] imagenBytes = blob.getBytes(1, (int)blob.length());
 
-                libro = new Book(idlibro, nombre, autor, cantPag, precio, sinopsis, copias, imagenBytes);
+                libro = new Book(idlibros, nombre, autor,cantPag,precio, sinopsis,copias,imagenBytes);
+
+                
             }
-
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         } finally {
-            close(conn, stmt, rs);
+            try {
+                close(rs);
+                close(stmt);
+                close(conn);
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.out);
+            }
         }
+
         return libro;
     }
-
-    public static int eliminar(int id) {
+    
+    public static int eliminar(int id){
         Connection conn = null;
-        ResultSet rs = null;
         PreparedStatement stmt = null;
         int registros = 0;
         try {
             conn = getConexion();
+            
             stmt = conn.prepareStatement(SQL_DELETE);
             stmt.setInt(1, id);
-
+            
             registros = stmt.executeUpdate();
-
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
-        } finally {
-            close(conn, stmt, rs);
+        }
+        finally{
+            try {
+                close(stmt);
+                close(conn);
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.out);
+            }
+        }
+        return registros;
+    }
+    
+    public static int actualizar(Book libro){
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        int registros = 0;
+        try {
+            conn = getConexion();
+            stmt = conn.prepareStatement(SQL_UPDATE);
+            stmt.setString(1, libro.getNombre());
+            stmt.setString(2, libro.getAutor());
+            stmt.setInt(3, libro.getCantPaginas());
+            stmt.setDouble(4, libro.getPrecio());
+            stmt.setInt(5, libro.getCopias());
+            stmt.setString(6,libro.getSinopsis());
+            stmt.setInt(7, libro.getIdlibros());
+            
+            registros = stmt.executeUpdate();
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }
+        finally{
+            try {
+                close(stmt);
+                close(conn);
+            } catch (SQLException ex) {
+                ex.printStackTrace(System.out);
+            }
         }
         return registros;
     }
