@@ -25,7 +25,7 @@
             </div>
         </nav>
         <div class="bg-secondary py-3">
-            <h1 class="py-3 ps-4 text-light">Agregar libro</h1>
+            <h1 class="py-3 ps-4 text-light">Agregar Libro</h1>
         </div>
         <div class="container mt-3">
             <form class="mb-4" id="addBookForm" enctype="multipart/form-data">
@@ -37,51 +37,50 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-floating my-3">
-                                                <input type="text" class="form-control" name="nombre" id="nombre" required>
+                                                <input type="text" class="form-control" name="nombre" id="nombre" required/>
                                                 <label for="nombre">Titulo</label>
                                             </div>
+                                            
                                             <div class="form-floating my-3">
-                                                <input type="text" class="form-control" name="autor" id="autor" required>
+                                                <input type="text" class="form-control" name="autor" id="autor" required/>
                                                 <label for="autor">Autor</label>
                                             </div>
+                                            
                                             <div class="form-floating my-3">
-                                                <input type="number" class="form-control" name="cantPaginas"
-                                                       id="cantPaginas" required>
-                                                <label for="cantPaginas">Cantidad de paginas</label>
+                                                <input type="number" class="form-control" name="cantPaginas" id="cantPaginas" required/>
+                                                <label for="cantPaginas">Cantidad de Paginas</label>
                                             </div>
                                             <div class="form-floating my-3">
-                                                <input type="numer" class="form-control" name="copias" id="copias" required>
-                                                <label for="copias">Cantidad de copias</label>
+                                                <input type="number" class="form-control" name="copias" id="copias" required/>
+                                                <label for="copias">Cantidad de Copias</label>
                                             </div>
                                             <div class="form-floating my-3">
-                                                <textarea class="form-control" placeholder="Escriba aqui la sinopsis"
-                                                          name="sinopsis" id="sinopsis"></textarea>
+                                                <textarea class="form-control" placeholder="Escriba aqui la sinopsis" name="sinopsis" id="sinopsis"></textarea>
                                                 <label for="sinopsis">Sinopsis</label>
                                             </div>
                                             <div class="form-floating my-3">
-                                                <input type="number" class="form-control" name="precio" id="precio"
-                                                       required>
+                                                <input type="number" class="form-control" name="precio" id="precio" required/>
                                                 <label for="precio">Precio</label>
-                                            </div>                                        
+                                            </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="input-group my-3">
                                                 <label class="input-group-text" for="imagen">Portada de libro</label>
-                                                <input type="file" class="form-control" name="imagen" id="imagen" aria-describedby="inputGroupFileAddon03" aria-label="Upload" accept="media/*" required>
+                                                <input type="file" class="form-control" name="imagen" id="imagen" aria-describedby="inputGroupFileAddon03" aria-label="Upload" accept="media/*" required/>
                                             </div>
+                                            
                                             <div class="container d-none w-75 text-center" id="imagenContainer">
-                                                <h4 class="mx-auto my-3">Imagen previa</h4>
-                                                <img class="img-fluid mt-4 rounded mx-auto d-block" id="imagenPreview" src="" alt="previsualización de imagen seleccionada">
+                                                <h4 class="mx-auto my-3">Previsualización</h4>
+                                                <img class="img-fluid mt-4 rounded mx-auto d-block" id="imagenPreview" src="" alt="Vista previa imagen"/>
                                             </div>
                                         </div>
                                     </div>
-                                    <button class="btn btn-primary mt-3" type="submit">Agregar libro</button>
+                                    <button class="btn btn-primary mt-3" type="submit">Agregar Libro</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </form>
         </div>
         <script src="../js/PostRequest.js"></script>
